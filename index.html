@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Kubernetes Applications Management Conventions | k8sapp.is</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Kubernetes Applications Management Conventions | k8sapp.is</h1>
+</header>
+<h1 id="kubernetes-applications-k8sapp-management-conventions">Kubernetes Applications (K8SAPP) Management Conventions</h1>
+<p>There are many ways to install and manage Kubernetes applications:</p>
+<ul>
+<li><code>kubectl</code> Scripts</li>
+<li>Kustomize</li>
+<li>Helm</li>
+<li>Modified Helm</li>
+<li>Operator Framework</li>
+<li>Custom Operators</li>
+<li>Adapted Terraform and/or Ansible</li>
+</ul>
+<p>Cloud native administrators are forced to learn one or all of these since there is no agreement in the industry as to any standard. Moreover, the industry is full of overly-hyped frameworks and “package managers” vying for dominance while failing to meet even minimal requirements for air-gapped security and sustainability. This situation, brought about by attempting to force imperative IT business processes into declarative “solutions,” has created chaos and a climate of conflict and shame for those refusing to use the Kubernetes application management “standards” when, in fact, the safest and most sustainable approach is to keep things simple: just use Kubernetes resource files and <code>kubectl</code> and follow a conventional methodology.</p>
+<p>Amidst the chaos, a common set of admin practices seems mandatory so that each application is looked after in a way that is implementation agnostic (like you would do with an interface when programming). One does not care <em>how</em> these practices are fulfilled, only that they are. Some can be scripted, some are a matter of documentation, but all are required for any application to makes it into your production cluster. One could say that every application can implement its own <em>methods</em> for the same <em>operations</em>. Operations are the actions taken by any cloud native admin, or by a script on behalf of the admin.</p>
+<p>To be clear, this is not yet-another-abstraction (even though it can be implemented as such). It’s just a matter of agreeing on what everyone on the admin team should do with respect to <em>all</em> Kubernetes applications while allowing each its own specificity.</p>
+<p>The K8SAPP contract simply asks that all team members agree to the following:</p>
+<ul>
+<li>Provide a git repo for each app (allows GitOps, etc.)</li>
+<li>Use a consistent git repo prefix (ex: <code>k8sapp-</code>)</li>
+<li>Provide a detailed README.md with description, etc.</li>
+<li>Keep a vendored copy of the original application</li>
+<li>Document the following procedures (as <code>##</code> in README.md):
+<ul>
+<li>Fetch - acquire from external authoritative source</li>
+<li>Understand - flatten, read README, Helm charts, policies, deps, etc.</li>
+<li>Configure - adapt original to match environment (<code>values.yaml</code>)</li>
+<li>Install - install the application for the first time</li>
+<li>Upgrade - install an upgraded version of the application</li>
+<li>Uninstall - remove all traces of the application from the cluster</li>
+<li>Check - latest version, dependencies, is there an update?</li>
+</ul></li>
+<li>Add a <em>## Related</em> section with related reading</li>
+<li>Maintain manifest of all installed applications in own repo (ex: <code>k8sapps</code>)</li>
+</ul>
+<blockquote>
+<p>💡 Consider creating a <code>template-k8sapp</code> for your organization in your Enterprise GitHub so that people can simply clone/copy it and fill it in. This takes a lot of the busy administrative work out of the process.</p>
+</blockquote>
+<p>Vendoring is the process of saving external dependencies with one’s own code. K8SAPP leverages the vendoring approach to preserve Helm charts and other YAML resource files that originate outside of the project. Acquiring these external resources can be included in a <code>fetch</code> action or simply documented in the README.md when an Internet connection cannot be assumed.</p>
+<p>Related:</p>
+<ul>
+<li><a href="/20211122163452/">20211122163452</a> “Package Management” Will Never Work in Kubernetes</li>
+</ul>
+<p>Tags:</p>
+<pre><code>#k8s #cloudnative #cloud #devops #k8sapp</code></pre>
+</body>
+</html>
