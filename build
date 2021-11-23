@@ -1,0 +1,2 @@
+#!/bin/bash
+pandoc -o index.html -s README.md --metadata title="Kubernetes Applications Management Conventions | k8sapp.is"
