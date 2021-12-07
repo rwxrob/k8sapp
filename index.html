@@ -215,6 +215,7 @@
 <header id="title-block-header">
 <h1 class="title">Kubernetes Applications Management Conventions | rwxrob.github.io/k8sapp</h1>
 </header>
+<h1 id="kubernetes-applications-k8sapp-management-conventions">Kubernetes Applications (K8SAPP) Management Conventions</h1>
 <p>There are many ways to install and manage Kubernetes applications:</p>
 <ul>
 <li><code>kubectl</code> Scripts</li>
@@ -236,12 +237,13 @@
 <li>Use a consistent prefix (ex: <code>k8sapp-</code>)</li>
 <li>Provide a detailed README.md with description, etc.</li>
 <li>Provide a metadata file (ex: <code>k8sapp.yaml</code>)</li>
-<li>Keep a vendored copy of the original application (ex: <code>helm/some-chart-0.8.tgz</code>, <code>helm/index.yaml</code>)</li>
 <li>Provide single resources file named for namespace (ex: <code>nfd.yaml</code>)</li>
+<li>Keep a vendored copy of the original application (ex: <code>helm/some-chart-0.8.tgz</code>, <code>helm/index.yaml</code>)</li>
+<li>Understand what the final Kubernetes resources will be before installing them</li>
+<li>Pull, vet, and push remote images to private registry</li>
 <li>Document the following procedures (as <code>##</code> in README.md):
 <ul>
 <li>Fetch - acquire from external authoritative source</li>
-<li>Understand - flatten, read README, Helm charts, policies, deps, etc.</li>
 <li>Configure - adapt original to match environment (<code>values.yaml</code>)</li>
 <li>Install - install the application for the first time</li>
 <li>Upgrade - install an upgraded version of the application</li>
@@ -264,14 +266,7 @@
 <p><code>title</code> descriptive title of 70 Unicode characters or less for creating lists of K8SAPPs</p>
 <p><code>version</code> semver of this K8SAPP, <em>not</em> it’s origin, <code>git tag</code> also must be synced</p>
 <p><code>repo</code> Git-friendly reference to the required source Git repo (usually HTTP)</p>
-<p><code>maintainers</code> list of primary contacts with <code>name</code>, <code>email</code>, <code>url</code>, <code>slack</code></p>
-<p><code>includes</code> list of sources composed into K8SAPP (Helm charts, other repos, etc.)</p>
-<p><code>includes.name</code> unique name within this K8SAPP repo</p>
-<p><code>includes.title</code> descriptive title, 70 Unicode characters or less</p>
-<p><code>includes.type</code> one of <code>helm</code>, <code>git</code>, etc.</p>
-<p><code>includes.url</code> primary source of information about</p>
-<p><code>includes.version</code> semantic version as indicated by source</p>
-<p><code>includes.sources</code> one or more sources that contain the composed include</p>
+<p><code>maintainers</code> optional list of primary contacts with <code>name</code>, <code>email</code>, <code>url</code>, <code>slack</code></p>
 <p><em>Why no summary or description?</em></p>
 <p>These should best be placed in the required README.md file within the required Git repo since CommonMark is much more expressive.</p>
 <p><em>Why no <code>kubeVersion</code>?</em></p>

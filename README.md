@@ -48,9 +48,11 @@ following:
 * Provide single resources file named for namespace (ex: `nfd.yaml`)
 * Keep a vendored copy of the original application (ex:
   `helm/some-chart-0.8.tgz`, `helm/index.yaml`)
+* Understand what the final Kubernetes resources will be before
+  installing them
+* Pull, vet, and push remote images to private registry
 * Document the following procedures (as `##` in README.md):
     * Fetch - acquire from external authoritative source
-    * Understand - flatten, read README, Helm charts, policies, deps, etc.
     * Configure - adapt original to match environment (`values.yaml`)
     * Install - install the application for the first time
     * Upgrade - install an upgraded version of the application
@@ -98,21 +100,7 @@ containing the following metadata:
 
 `repo` Git-friendly reference to the required source Git repo (usually HTTP)
 
-`maintainers` list of primary contacts with `name`, `email`, `url`, `slack`
-
-`includes` list of sources composed into K8SAPP (Helm charts, other repos, etc.)
-
-`includes.name` unique name within this K8SAPP repo
-
-`includes.title` descriptive title, 70 Unicode characters or less
-
-`includes.type` one of `helm`, `git`, etc.
-
-`includes.url` primary source of information about
-
-`includes.version` semantic version as indicated by source
-
-`includes.sources` one or more sources that contain the composed include
+`maintainers` optional list of primary contacts with `name`, `email`, `url`, `slack`
 
 *Why no summary or description?*
 
